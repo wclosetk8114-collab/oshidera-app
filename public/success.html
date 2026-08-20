@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お申し込みありがとうございます | OSHIDERA（推し寺）</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#18140F; --ink-soft:#5B5147; --paper:#F6F1E7; --paper-deep:#EEE6D6;
+    --card:#FCFAF4; --line:rgba(24,20,15,.12); --gold:#A9812F; --gold-bright:#C79A3B; --maroon:#742C2A;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:var(--paper); color:var(--ink); font-family:"Noto Sans JP",sans-serif;
+    padding:24px;
+  }
+  .card{
+    max-width:520px; width:100%; background:var(--card); border:1px solid var(--line);
+    padding:48px 40px; text-align:center; box-shadow:0 20px 60px rgba(24,20,15,.08);
+  }
+  .mark{width:44px;height:44px;margin:0 auto 20px;color:var(--gold);}
+  h1{
+    font-family:"Shippori Mincho",serif; font-weight:700; font-size:26px; letter-spacing:.02em;
+    margin:0 0 14px;
+  }
+  p{font-size:14px; line-height:1.9; color:var(--ink-soft); margin:0 0 10px;}
+  .note{
+    margin-top:24px; padding:14px 16px; background:var(--paper-deep); font-size:12px;
+    color:var(--ink-soft); text-align:left; line-height:1.8;
+  }
+  a.back{
+    display:inline-block; margin-top:28px; padding:12px 28px; background:var(--ink); color:var(--paper);
+    text-decoration:none; font-size:13px; font-weight:700; letter-spacing:.04em;
+  }
+  a.back:hover{background:var(--maroon);}
+</style>
+</head>
+<body>
+  <div class="card">
+    <svg class="mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15H38V40H10Z"/><path d="M10 15L24 5L38 15"/><circle cx="24" cy="10" r="1.4" fill="currentColor" stroke="none"/></svg>
+    <h1>お申し込みありがとうございます</h1>
+    <p>推し寺への継続支援のお申し込みが完了しました。ご登録いただいたお支払い方法で、月ごとにお支払いが行われます。</p>
+    <div class="note">
+      これはStripeの<b>テストモード</b>で処理されたデモ決済です。実際の課金は発生していません。テストカード（4242 4242 4242 4242）を使った動作確認用のページです。
+    </div>
+    <a class="back" href="/">サイトに戻る</a>
+  </div>
+</body>
+</html>
