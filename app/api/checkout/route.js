@@ -3,6 +3,19 @@ import Stripe from "stripe";
 
 export const dynamic = "force-dynamic";
 
+// 診断用: キーの中身は返さず、形式だけをマスク表示で確認する
+export async function GET() {
+  const secretKey = process.env.STRIPE_SECRET_KEY || "";
+  const looksValid = /^sk_(test|live)_[A-Za-z0-9]{10,}$/.test(secretKey);
+  return NextResponse.json({
+    configured: secretKey.length > 0,
+    looksValid,
+    prefix: secretKey.slice(0, 8),
+    tail: secretKey ? "****" + secretKey.slice(-4) : "",
+    length: secretKey.length,
+  });
+}
+
 const PLAN_LABELS = {
   light: "ライト",
   standard: "スタンダード",
