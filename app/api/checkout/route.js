@@ -52,54 +52,6 @@ async function createCheckoutSession({ secretKey, items, origin }) {
   });
 }
 
-// 診断用: キーの中身は返さず、形式だけをマスク表示で確認する
-// ?selftest=1 を付けると、POSTと同じ createCheckoutSession() 経路で
-// ¥100のダミーCheckout Sessionを1件作成し、Stripeへの疎通を検証する
-// （作成されるのはリンクのみで、誰も決済しなければ何も起きない）
-export async function GET(req) {
-  const secretKey = process.env.STRIPE_SECRET_KEY || "";
-  const looksValid = /^sk_(test|live)_[A-Za-z0-9]{10,}$/.test(secretKey);
-
-  const url = new URL(req.url);
-  if (url.searchParams.get("selftest") === "1") {
-    if (!looksValid) {
-      return NextResponse.json(
-        { selftest: "skipped", reason: "STRIPE_SECRET_KEY not valid-looking" },
-        { status: 500 }
-      );
-    }
-    try {
-      const origin = req.headers.get("origin") || `https://${req.headers.get("host")}`;
-      const session = await createCheckoutSession({
-        secretKey,
-        items: [
-          {
-            id: "selftest",
-            name: "selftest（動作確認用・実際の支援には使わないでください）",
-            plan: "light",
-            priceYen: 100,
-          },
-        ],
-        origin,
-      });
-      return NextResponse.json({ selftest: "ok", checkoutUrl: session.url });
-    } catch (err) {
-      return NextResponse.json(
-        { selftest: "error", message: err instanceof Error ? err.message : String(err) },
-        { status: 500 }
-      );
-    }
-  }
-
-  return NextResponse.json({
-    configured: secretKey.length > 0,
-    looksValid,
-    prefix: secretKey.slice(0, 8),
-    tail: secretKey ? "****" + secretKey.slice(-4) : "",
-    length: secretKey.length,
-  });
-}
-
 export async function POST(req) {
   try {
     const secretKey = process.env.STRIPE_SECRET_KEY;
