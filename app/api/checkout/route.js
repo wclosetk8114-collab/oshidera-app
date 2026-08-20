@@ -4,9 +4,49 @@ import Stripe from "stripe";
 export const dynamic = "force-dynamic";
 
 // 診断用: キーの中身は返さず、形式だけをマスク表示で確認する
-export async function GET() {
+// ?selftest=1 を付けると、実際に¥100のダミーCheckout Sessionを1件作成し、
+// Stripeへの疎通そのものを検証する（作成されるのはリンクのみで、誰も決済しなければ何も起きない）
+export async function GET(req) {
   const secretKey = process.env.STRIPE_SECRET_KEY || "";
   const looksValid = /^sk_(test|live)_[A-Za-z0-9]{10,}$/.test(secretKey);
+
+  const url = new URL(req.url);
+  if (url.searchParams.get("selftest") === "1") {
+    if (!looksValid) {
+      return NextResponse.json(
+        { selftest: "skipped", reason: "STRIPE_SECRET_KEY not valid-looking" },
+        { status: 500 }
+      );
+    }
+    try {
+      const stripe = new Stripe(secretKey);
+      const origin = req.headers.get("origin") || `https://${req.headers.get("host")}`;
+      const session = await stripe.checkout.sessions.create({
+        mode: "subscription",
+        line_items: [
+          {
+            quantity: 1,
+            price_data: {
+              currency: "jpy",
+              unit_amount: 100,
+              recurring: { interval: "month" },
+              product_data: { name: "selftest（動作確認用・実際の支援には使わないでください）" },
+            },
+          },
+        ],
+        success_url: `${origin}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${origin}/index.html`,
+        locale: "ja",
+      });
+      return NextResponse.json({ selftest: "ok", checkoutUrl: session.url });
+    } catch (err) {
+      return NextResponse.json(
+        { selftest: "error", message: err instanceof Error ? err.message : String(err) },
+        { status: 500 }
+      );
+    }
+  }
+
   return NextResponse.json({
     configured: secretKey.length > 0,
     looksValid,
