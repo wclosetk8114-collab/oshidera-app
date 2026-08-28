@@ -275,6 +275,35 @@
   .directory-loc{font-size:11px;color:var(--ink-soft);margin-top:-4px;}
   .directory-highlight{font-size:12px;color:var(--ink-soft);flex:1;}
 
+  /* oshi-dera matching quiz (entertainment, not a scientific diagnosis) */
+  .match-section{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .match-card{
+    max-width:560px;margin:0 auto;background:var(--paper-deep);border:1px solid var(--line-strong);
+    padding:40px 34px;text-align:center;
+  }
+  .match-label{display:block;font-size:13px;color:var(--ink-soft);margin-bottom:16px;}
+  .match-date-input{
+    font-family:inherit;font-size:15px;padding:11px 14px;border:1px solid var(--line-strong);
+    background:var(--card);color:var(--ink);margin:0 auto 22px;width:100%;max-width:240px;display:block;
+  }
+  .match-zodiac-tag{font-size:11px;letter-spacing:.05em;color:var(--maroon);font-weight:600;margin-bottom:18px;}
+  .match-progress{font-size:11px;color:var(--ink-soft);margin-bottom:10px;letter-spacing:.05em;}
+  .match-question{font-family:'Shippori Mincho',serif;font-size:19px;font-weight:700;margin-bottom:24px;line-height:1.5;}
+  .match-options{display:flex;flex-direction:column;gap:12px;}
+  .match-option{
+    font-family:inherit;font-size:14px;padding:15px 18px;background:var(--card);border:1px solid var(--line-strong);
+    cursor:pointer;color:var(--ink);text-align:left;transition:border-color .2s ease,background .2s ease;
+  }
+  .match-option:hover{border-color:var(--gold);background:var(--paper);}
+  .match-result-label{font-size:12px;color:var(--ink-soft);letter-spacing:.08em;margin-bottom:8px;}
+  .match-result-name{font-family:'Shippori Mincho',serif;font-size:27px;font-weight:700;margin-bottom:6px;}
+  .match-result-loc{font-size:12.5px;color:var(--ink-soft);margin-bottom:18px;}
+  .match-result-desc{font-size:13.5px;color:var(--ink-soft);margin-bottom:26px;max-width:420px;margin-left:auto;margin-right:auto;}
+  .match-result-actions{display:flex;flex-direction:column;gap:14px;align-items:center;margin-bottom:20px;}
+  .match-retry{background:none;border:none;color:var(--ink-soft);font-size:12px;text-decoration:underline;cursor:pointer;font-family:inherit;}
+  @keyframes matchGlow{0%,100%{box-shadow:0 0 0 0 rgba(199,154,59,0);}50%{box-shadow:0 0 0 8px rgba(199,154,59,.35);}}
+  .temple-card.match-highlight{animation:matchGlow 1s ease-in-out 2;}
+
   /* temples */
   .temples-section{background:var(--paper-deep);}
   .temple-grid{
@@ -540,6 +569,7 @@
     <nav class="nav-links">
       <a href="#real-examples">実例</a>
       <a href="#directory">全国ガイド</a>
+      <a href="#match">推し寺診断</a>
       <a href="#temples">寺社を探す</a>
       <a href="#how">使い方</a>
       <a href="#plans">プラン</a>
@@ -641,6 +671,15 @@
       </div>
     </div>
   </div>
+</section>
+
+<section class="match-section" id="match">
+  <div class="section-head reveal">
+    <span class="eyebrow">FIND YOUR OSHI-DERA</span>
+    <h2>推し寺診断</h2>
+    <p>生年月日から算出する干支タイプ（十二支の「三合」という伝統的な分類）と、2つの質問への回答から、あなたと相性の良さそうな「推し寺」を診断します。占い・エンタメとしてお楽しみください（学術的な統計・診断ではありません）。</p>
+  </div>
+  <div class="match-card reveal" id="match-card"></div>
 </section>
 
 <section class="temples-section" id="temples">
@@ -1446,6 +1485,125 @@ function closeDetail(){
   document.getElementById("detail-overlay").classList.remove("open");
 }
 
+// 推し寺診断 (oshi-dera matching quiz) — entertainment feature, not a scientific diagnosis.
+// Uses the birth-year zodiac animal (十二支) grouped by the traditional "三合" affinity triads,
+// then two quick questions to pick between the two candidate temples in that group.
+// Always matches to one of the fictional demo temples in TEMPLES (never the real institutions above).
+const ZODIAC_BY_REMAINDER = ["申","酉","戌","亥","子","丑","寅","卯","辰","巳","午","未"];
+const ZODIAC_GROUPS = {
+  "静寂・癒し型":   {animals:["卯","未","亥"], temples:[1,6]},
+  "伝統・格式型":   {animals:["寅","午","戌"], temples:[2,8]},
+  "絆・自然の力型": {animals:["巳","酉","丑"], temples:[3,5]},
+  "芸術・美意識型": {animals:["申","子","辰"], temples:[4,7]},
+};
+const MATCH_QUESTIONS = {
+  "静寂・癒し型": [
+    {q:"休日はどちらで過ごしたい？", a:"静かな庭を眺めながらお茶を飲む", b:"山深い自然の中で澄んだ空気を吸う"},
+    {q:"惹かれるのはどちら？", a:"歴史ある庭園や建築の美しさ", b:"古くから伝わる仏様のお姿"},
+  ],
+  "伝統・格式型": [
+    {q:"好きな景色は？", a:"空に向かってそびえる五重塔", b:"歴史ある町並みに佇む山門"},
+    {q:"旅先で行きたいのは？", a:"奈良の古都", b:"鎌倉の古都"},
+  ],
+  "絆・自然の力型": [
+    {q:"気になるのは？", a:"地域を見守ってきた氏神様の神楽", b:"海の安全を祈る龍神様"},
+    {q:"行くならどっち？", a:"島根の静かな漁村", b:"和歌山の漁業の町"},
+  ],
+  "芸術・美意識型": [
+    {q:"心惹かれる美は？", a:"墨で描かれた襖絵と禅の静けさ", b:"朱色が連なる千本鳥居の圧巻の景色"},
+    {q:"体験するなら？", a:"静かな坐禅体験", b:"雪景色の中の参道歩き"},
+  ],
+};
+let matchState = null;
+
+function renderMatchStart(){
+  document.getElementById("match-card").innerHTML = `
+    <label class="match-label" for="match-birthdate">生年月日を入力してください</label>
+    <input type="date" id="match-birthdate" class="match-date-input">
+    <button class="btn solid" onclick="startMatchQuiz()">診断をはじめる ${ARROW_ICON}</button>
+  `;
+}
+
+function computeZodiac(year){
+  const idx = ((year % 12) + 12) % 12;
+  return ZODIAC_BY_REMAINDER[idx];
+}
+function categoryForAnimal(animal){
+  for(const [name, g] of Object.entries(ZODIAC_GROUPS)){
+    if(g.animals.includes(animal)) return name;
+  }
+  return null;
+}
+
+function startMatchQuiz(){
+  const input = document.getElementById("match-birthdate");
+  if(!input || !input.value){ alert("生年月日を入力してください"); return; }
+  const year = new Date(input.value).getFullYear();
+  const animal = computeZodiac(year);
+  const category = categoryForAnimal(animal);
+  matchState = { animal, category, qIndex:0, score:{a:0,b:0} };
+  renderMatchQuestion();
+}
+
+function renderMatchQuestion(){
+  const questions = MATCH_QUESTIONS[matchState.category];
+  const q = questions[matchState.qIndex];
+  document.getElementById("match-card").innerHTML = `
+    <div class="match-zodiac-tag">干支タイプ：${matchState.animal}年生まれ・${matchState.category}</div>
+    <div class="match-progress">質問 ${matchState.qIndex+1} / ${questions.length}</div>
+    <div class="match-question">${q.q}</div>
+    <div class="match-options">
+      <button class="match-option" onclick="answerMatch('a')">${q.a}</button>
+      <button class="match-option" onclick="answerMatch('b')">${q.b}</button>
+    </div>
+  `;
+}
+
+function answerMatch(choice){
+  matchState.score[choice]++;
+  matchState.qIndex++;
+  const questions = MATCH_QUESTIONS[matchState.category];
+  if(matchState.qIndex < questions.length){
+    renderMatchQuestion();
+  } else {
+    finishMatch();
+  }
+}
+
+function finishMatch(){
+  const g = ZODIAC_GROUPS[matchState.category];
+  const templeId = matchState.score.a >= matchState.score.b ? g.temples[0] : g.temples[1];
+  const t = TEMPLES.find(x=>x.id===templeId);
+  const kindLabel = t.kind === "shrine" ? "神社" : "寺院";
+  document.getElementById("match-card").innerHTML = `
+    <div class="match-zodiac-tag">干支タイプ：${matchState.animal}年生まれ・${matchState.category}</div>
+    <div class="match-result-label">あなたの推し寺は…</div>
+    <div class="match-result-name">${t.name}</div>
+    <div class="match-result-loc">${kindLabel}・${t.loc}</div>
+    <p class="match-result-desc">${t.desc}</p>
+    <div class="match-result-actions">
+      <button class="detail-link" onclick="openDetail(${t.id})">紹介を見る ${ARROW_ICON}</button>
+      <button class="btn solid" onclick="goSupportMatched(${t.id})">この推し寺を応援してみる ${ARROW_ICON}</button>
+    </div>
+    <button class="match-retry" onclick="renderMatchStart()">もう一度診断する</button>
+  `;
+}
+
+function goSupportMatched(id){
+  if(selected[id] === undefined){
+    toggleTemple(id);
+  }
+  const target = document.getElementById("temples");
+  if(target) target.scrollIntoView({behavior:"smooth"});
+  setTimeout(()=>{
+    const card = document.getElementById("card-"+id);
+    if(card){
+      card.classList.add("match-highlight");
+      setTimeout(()=>card.classList.remove("match-highlight"), 2000);
+    }
+  }, 500);
+}
+
 function toggleSummary(){
   const detail = document.getElementById("summary-detail");
   const caret = document.getElementById("sum-caret");
@@ -1709,6 +1867,7 @@ renderTemples();
 renderSummary();
 renderRealExamples();
 renderDirectory();
+renderMatchStart();
 renderTicker();
 initReveal();
 initGlow();
