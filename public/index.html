@@ -279,6 +279,109 @@
   .directory-name{font-family:'Shippori Mincho',serif;font-size:16px;font-weight:700;}
   .directory-loc{font-size:11px;color:var(--ink-soft);margin-top:-4px;}
   .directory-highlight{font-size:12px;color:var(--ink-soft);flex:1;}
+  .directory-cardtop{display:flex;align-items:center;justify-content:space-between;}
+  .wishlist-heart{
+    background:none;border:none;cursor:pointer;font-size:18px;line-height:1;color:var(--line-strong);
+    padding:0;transition:color .2s ease,transform .15s ease;
+  }
+  .wishlist-heart:hover{transform:scale(1.15);}
+  .wishlist-heart.active{color:var(--maroon);}
+  .visited-badge{
+    align-self:flex-start;font-size:10px;letter-spacing:.06em;font-weight:700;color:#3E7D5A;
+    border:1px solid #3E7D5A;padding:2px 8px;
+  }
+
+  /* rating / stars (used by directory cards, detail modal, ranking) */
+  .rating-line{display:flex;align-items:center;gap:6px;}
+  .rating-line.no-reviews{color:var(--ink-soft);}
+  .rating-avg{font-family:'Shippori Mincho',serif;font-weight:700;font-size:14px;color:var(--maroon);}
+  .rating-num{font-size:11px;color:var(--ink-soft);}
+  .stars{color:var(--gold);}
+  .rating-line.no-reviews .stars{color:var(--line-strong);}
+
+  /* directory search / filter bar */
+  .directory-filterbar{
+    max-width:1160px;margin:0 auto 28px;display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+    justify-content:center;
+  }
+  .directory-filterbar select{
+    font-family:inherit;font-size:12.5px;padding:9px 12px;border:1px solid var(--line-strong);
+    background:var(--card);color:var(--ink);
+  }
+  .directory-filterbar .df-wishlist{
+    display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-soft);cursor:pointer;
+  }
+  .directory-count{
+    max-width:1160px;margin:-14px auto 20px;text-align:right;font-size:11.5px;color:var(--ink-soft);
+  }
+  .directory-empty{
+    max-width:1160px;margin:0 auto;padding:40px;text-align:center;color:var(--ink-soft);
+    font-size:13.5px;background:var(--card);border:1px solid var(--line-strong);
+  }
+
+  /* visit-status buttons (used in detail modal) */
+  .detail-visit-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;}
+  .visit-btn{
+    font-family:inherit;font-size:12px;letter-spacing:.03em;padding:9px 14px;cursor:pointer;
+    border:1px solid var(--line-strong);background:var(--card);color:var(--ink-soft);
+    transition:background .2s ease,color .2s ease,border-color .2s ease;
+  }
+  .visit-btn:hover{border-color:var(--maroon);color:var(--maroon);}
+  .visit-btn.active{background:var(--maroon);border-color:var(--maroon);color:#fff;}
+
+  /* review section (inside detail modal) */
+  .review-section{margin-top:30px;padding-top:26px;border-top:1px solid var(--line);}
+  .review-heading{font-size:15.5px;margin-bottom:16px;}
+  .review-form{background:var(--paper-deep);padding:20px;margin-bottom:22px;display:flex;flex-direction:column;gap:10px;}
+  .review-star-picker{display:flex;gap:4px;font-size:24px;line-height:1;cursor:pointer;color:var(--gold);}
+  .review-star-picker .rs-star{transition:transform .1s ease;}
+  .review-star-picker .rs-star:hover{transform:scale(1.15);}
+  .review-form input,.review-form textarea{
+    font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid var(--line-strong);
+    background:var(--card);color:var(--ink);resize:vertical;
+  }
+  .review-submit{align-self:flex-start;}
+  .review-note{font-size:10.5px;color:var(--ink-soft);}
+  .review-error{font-size:11.5px;color:var(--maroon);font-weight:600;min-height:14px;}
+  .review-list{display:flex;flex-direction:column;gap:16px;}
+  .review-empty{font-size:12.5px;color:var(--ink-soft);text-align:center;padding:20px 0;}
+  .review-item{border-bottom:1px solid var(--line);padding-bottom:14px;}
+  .review-item-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+  .review-nick{font-size:12px;font-weight:600;}
+  .review-date{font-size:10.5px;color:var(--ink-soft);margin-left:auto;}
+  .review-text{font-size:12.5px;color:var(--ink-soft);white-space:pre-wrap;}
+
+  /* ranking section */
+  .ranking-section{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .ranking-tabs{
+    max-width:1160px;margin:0 auto 30px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
+  }
+  .ranking-tab{
+    font-family:inherit;font-size:12px;letter-spacing:.04em;padding:8px 16px;cursor:pointer;
+    border:1px solid var(--line-strong);background:transparent;color:var(--ink-soft);
+    transition:background .2s ease,color .2s ease;
+  }
+  .ranking-tab:hover{border-color:var(--maroon);color:var(--maroon);}
+  .ranking-tab.active{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+  .ranking-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;border-top:1px solid var(--line);}
+  .ranking-row{
+    display:flex;align-items:center;gap:18px;padding:18px 8px;border-bottom:1px solid var(--line);
+    cursor:pointer;transition:background .2s ease;
+  }
+  .ranking-row:hover{background:var(--paper-deep);}
+  .ranking-rank{
+    font-family:'Shippori Mincho',serif;font-size:22px;font-weight:700;color:var(--gold);
+    width:34px;flex:none;text-align:center;
+  }
+  .ranking-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;}
+  .ranking-name{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:700;}
+  .ranking-pref{font-family:'Noto Sans JP',sans-serif;font-size:11px;font-weight:500;color:var(--ink-soft);margin-left:8px;}
+  .ranking-arrow{width:13px;height:13px;flex:none;color:var(--ink-soft);}
+
+  @media(max-width:640px){
+    .ranking-row{gap:10px;}
+    .ranking-rank{width:26px;font-size:18px;}
+  }
 
   /* oshi-dera matching quiz (entertainment, not a scientific diagnosis) */
   .match-section{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
@@ -575,6 +678,7 @@
       <a href="#match">推し寺診断</a>
       <a href="#real-examples">実例</a>
       <a href="#directory">全国ガイド</a>
+      <a href="#ranking">ランキング</a>
       <a href="#temples">寺社を探す</a>
       <a href="#how">使い方</a>
       <a href="#plans">プラン</a>
@@ -667,7 +771,34 @@
   <div class="real-note reveal">
     情報はWeb検索で確認できる公開情報（公式サイト・Wikipedia日本語版等）をもとに2026年8月時点でまとめた一般的な紹介です。創建年など伝承にもとづく情報は本文中に「伝わる」「諸説あり」等を明記しています。
   </div>
+  <div class="directory-filterbar reveal">
+    <select id="df-pref" onchange="onDirectoryFilterChange()">
+      <option value="all">すべての都道府県</option>
+    </select>
+    <select id="df-kind" onchange="onDirectoryFilterChange()">
+      <option value="all">神社・寺院すべて</option>
+      <option value="shrine">神社のみ</option>
+      <option value="temple">寺院のみ</option>
+    </select>
+    <select id="df-sort" onchange="onDirectoryFilterChange()">
+      <option value="default">都道府県順（北から）</option>
+      <option value="rating">評価が高い順</option>
+      <option value="reviews">口コミが多い順</option>
+    </select>
+    <label class="df-wishlist"><input type="checkbox" id="df-wishlist" onchange="onDirectoryFilterChange()"> 行きたい/参拝済みのみ表示</label>
+  </div>
+  <div class="directory-count" id="directory-count"></div>
   <div class="directory-grid" id="directory-grid"></div>
+</section>
+
+<section class="ranking-section" id="ranking">
+  <div class="section-head reveal">
+    <span class="eyebrow">POPULARITY RANKING</span>
+    <h2>神社仏閣 人気ランキング</h2>
+    <p>訪問者の口コミ評価・件数をもとにした人気ランキングです（デモ機能：この端末に投稿された口コミデータをもとに集計しています）。地方ごとの絞り込みもできます。</p>
+  </div>
+  <div class="ranking-tabs" id="ranking-tabs"></div>
+  <div class="ranking-list" id="ranking-list"></div>
 </section>
 
 <section class="features">
@@ -1746,19 +1877,146 @@ function openRealDetail(i){
   document.getElementById("detail-overlay").classList.add("open");
 }
 
+// ==== nationwide shrine & temple directory: reviews / wishlist (Tabelog-style, demo) ====
+// All review & visit-status data is stored ONLY in this browser's localStorage.
+// This is a demo feature: OSHIDERA does not operate, moderate, or transmit these
+// reviews anywhere else, and has no affiliation with the institutions listed.
+const REVIEW_LS_KEY = "oshidera_directory_reviews_v1";
+const VISIT_LS_KEY = "oshidera_directory_visitstatus_v1";
+
+const REGION_MAP = {
+  "北海道":"北海道",
+  "青森県":"東北","岩手県":"東北","宮城県":"東北","秋田県":"東北","山形県":"東北","福島県":"東北",
+  "茨城県":"関東","栃木県":"関東","群馬県":"関東","埼玉県":"関東","千葉県":"関東","東京都":"関東","神奈川県":"関東",
+  "新潟県":"中部","富山県":"中部","石川県":"中部","福井県":"中部","山梨県":"中部","長野県":"中部","岐阜県":"中部","静岡県":"中部","愛知県":"中部",
+  "三重県":"近畿","滋賀県":"近畿","京都府":"近畿","大阪府":"近畿","兵庫県":"近畿","奈良県":"近畿","和歌山県":"近畿",
+  "鳥取県":"中国","島根県":"中国","岡山県":"中国","広島県":"中国","山口県":"中国",
+  "徳島県":"四国","愛媛県":"四国","高知県":"四国","香川県":"四国",
+  "福岡県":"九州・沖縄","佐賀県":"九州・沖縄","長崎県":"九州・沖縄","熊本県":"九州・沖縄","大分県":"九州・沖縄","宮崎県":"九州・沖縄","鹿児島県":"九州・沖縄","沖縄県":"九州・沖縄",
+};
+const REGIONS = ["すべて","北海道","東北","関東","中部","近畿","中国","四国","九州・沖縄"];
+
+function loadJSON(key, fallback){
+  try{ const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
+  catch(e){ return fallback; }
+}
+function saveJSON(key, obj){
+  try{ localStorage.setItem(key, JSON.stringify(obj)); }catch(e){}
+}
+function getReviews(name){
+  const all = loadJSON(REVIEW_LS_KEY, {});
+  return Array.isArray(all[name]) ? all[name] : [];
+}
+function addReview(name, rating, text, nickname){
+  const all = loadJSON(REVIEW_LS_KEY, {});
+  if(!Array.isArray(all[name])) all[name] = [];
+  all[name].unshift({
+    rating: Math.max(1, Math.min(5, Math.round(Number(rating) || 0))),
+    text: String(text || "").slice(0, 400),
+    nickname: String(nickname || "").trim().slice(0, 24) || "名無しの参拝者",
+    date: new Date().toISOString(),
+  });
+  saveJSON(REVIEW_LS_KEY, all);
+}
+function ratingSummary(name){
+  const revs = getReviews(name);
+  if(revs.length === 0) return {avg:0, count:0};
+  const sum = revs.reduce((a,r)=>a+(r.rating||0),0);
+  return {avg: sum/revs.length, count: revs.length};
+}
+function getVisitStatus(name){
+  return loadJSON(VISIT_LS_KEY, {})[name] || null;
+}
+function setVisitStatus(name, status){
+  const all = loadJSON(VISIT_LS_KEY, {});
+  if(all[name] === status) delete all[name];
+  else all[name] = status;
+  saveJSON(VISIT_LS_KEY, all);
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function formatReviewDate(iso){
+  try{ const d = new Date(iso); return `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`; }
+  catch(e){ return ""; }
+}
+function starHTML(avg, size){
+  size = size || 13;
+  let html = '<span class="stars">';
+  for(let i=1;i<=5;i++){
+    const filled = i <= Math.round(avg);
+    html += `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="${filled ? "currentColor" : "none"}" stroke="currentColor" stroke-width="1.4" style="vertical-align:-2px;"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>`;
+  }
+  html += "</span>";
+  return html;
+}
+function ratingLine(name){
+  const {avg, count} = ratingSummary(name);
+  if(count === 0){
+    return `<div class="rating-line no-reviews">${starHTML(0)}<span class="rating-num">口コミ0件</span></div>`;
+  }
+  return `<div class="rating-line"><span class="rating-avg">${avg.toFixed(1)}</span>${starHTML(avg)}<span class="rating-num">口コミ${count}件</span></div>`;
+}
+
 // nationwide shrine & temple directory (general information only, no fundraising, no affiliation)
+let directoryFilter = {pref:"all", kind:"all", sort:"default", wishlistOnly:false};
+
+function populateDirectoryFilterOptions(){
+  const sel = document.getElementById("df-pref");
+  if(!sel) return;
+  const prefs = NATIONAL_DIRECTORY.map(t=>t.pref);
+  sel.innerHTML = `<option value="all">すべての都道府県</option>` +
+    prefs.map(p=>`<option value="${p}">${p}</option>`).join("");
+}
+function onDirectoryFilterChange(){
+  directoryFilter.pref = document.getElementById("df-pref").value;
+  directoryFilter.kind = document.getElementById("df-kind").value;
+  directoryFilter.sort = document.getElementById("df-sort").value;
+  directoryFilter.wishlistOnly = document.getElementById("df-wishlist").checked;
+  renderDirectory();
+}
+
 function renderDirectory(){
   const grid = document.getElementById("directory-grid");
-  grid.innerHTML = NATIONAL_DIRECTORY.map((t,i)=>{
+  const countLabel = document.getElementById("directory-count");
+  let list = NATIONAL_DIRECTORY.map((t,i)=>({...t, _idx:i}));
+
+  if(directoryFilter.pref !== "all") list = list.filter(t=>t.pref === directoryFilter.pref);
+  if(directoryFilter.kind !== "all") list = list.filter(t=>t.kind === directoryFilter.kind);
+  if(directoryFilter.wishlistOnly) list = list.filter(t=>getVisitStatus(t.name) !== null);
+
+  if(directoryFilter.sort === "rating"){
+    list.sort((a,b)=>{
+      const ra = ratingSummary(a.name), rb = ratingSummary(b.name);
+      return rb.avg !== ra.avg ? rb.avg - ra.avg : rb.count - ra.count;
+    });
+  } else if(directoryFilter.sort === "reviews"){
+    list.sort((a,b)=> ratingSummary(b.name).count - ratingSummary(a.name).count);
+  }
+
+  if(countLabel) countLabel.textContent = `${list.length}件表示中`;
+
+  if(list.length === 0){
+    grid.innerHTML = `<div class="directory-empty">条件に一致する神社仏閣がありません。</div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map((t)=>{
     const kindLabel = t.kind === "shrine" ? "神社" : "寺院";
+    const status = getVisitStatus(t.name);
     return `
     <div class="directory-card">
-      <span class="directory-pref">${t.pref}</span>
+      <div class="directory-cardtop">
+        <span class="directory-pref">${t.pref}</span>
+        <button class="wishlist-heart ${status==="want"?"active":""}" title="行きたい" onclick="event.stopPropagation();toggleVisitStatus(${t._idx},'want')">${status==="want"?"♥":"♡"}</button>
+      </div>
       <div class="directory-kind">${kindLabel}</div>
       <div class="directory-name">${t.name}</div>
       <div class="directory-loc">${t.loc}</div>
+      ${ratingLine(t.name)}
       <div class="directory-highlight">${t.highlights[0]}</div>
-      <button class="detail-link" onclick="openDirectoryDetail(${i})">詳しく見る ${ARROW_ICON}</button>
+      ${status==="visited" ? '<span class="visited-badge">✓ 参拝済み</span>' : ""}
+      <button class="detail-link" onclick="openDirectoryDetail(${t._idx})">詳しく見る ${ARROW_ICON}</button>
     </div>`;
   }).join("");
 }
@@ -1767,6 +2025,9 @@ function openDirectoryDetail(i){
   const t = NATIONAL_DIRECTORY[i];
   const kindLabel = t.kind === "shrine" ? "神社" : "寺院";
   const honzonLabel = t.kind === "shrine" ? "ご祭神" : "ご本尊";
+  const status = getVisitStatus(t.name);
+  const revs = getReviews(t.name);
+  const {count} = ratingSummary(t.name);
   document.getElementById("detail-body").innerHTML = `
     <button class="detail-close" onclick="closeDetail()">${CLOSE_ICON}</button>
     <div class="detail-grid">
@@ -1775,6 +2036,11 @@ function openDirectoryDetail(i){
         <div class="detail-tag">${t.pref}・${kindLabel}</div>
         <div class="detail-name">${t.name}</div>
         <div class="detail-loc">${t.loc}</div>
+        ${ratingLine(t.name)}
+        <div class="detail-visit-row">
+          <button class="visit-btn ${status==="want"?"active":""}" onclick="toggleVisitStatus(${i},'want')">${status==="want"?"♥ 行きたい登録済み":"♡ 行きたいに追加"}</button>
+          <button class="visit-btn ${status==="visited"?"active":""}" onclick="toggleVisitStatus(${i},'visited')">${status==="visited"?"✓ 参拝済み":"参拝済みにする"}</button>
+        </div>
         <div class="detail-meta">
           <div><div class="mlabel">創建</div><div class="mval">${t.founded || "不明"}</div></div>
           <div><div class="mlabel">${honzonLabel}</div><div class="mval">${t.honzon || "不明"}</div></div>
@@ -1787,9 +2053,118 @@ function openDirectoryDetail(i){
         <div class="detail-actions">
           <a class="add-btn" href="${t.url}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;display:inline-flex;">公式情報を見る ${ARROW_ICON}</a>
         </div>
+
+        <div class="review-section">
+          <h4 class="review-heading">口コミ・参拝レポート（${count}件）</h4>
+          <div class="review-form">
+            <div class="review-star-picker" id="review-star-picker" data-value="0">
+              ${[1,2,3,4,5].map(n=>`<span class="rs-star" data-n="${n}" onclick="setReviewStars(${n})">☆</span>`).join("")}
+            </div>
+            <input type="text" id="review-nickname" placeholder="お名前（未入力なら「名無しの参拝者」）" maxlength="24">
+            <textarea id="review-text" placeholder="参拝した感想や見どころを書いてみましょう" maxlength="400" rows="3"></textarea>
+            <div class="review-error" id="review-error"></div>
+            <button class="add-btn review-submit" onclick="submitReview(${i})">口コミを投稿する</button>
+            <div class="review-note">※このサイトのデモ機能です。投稿内容はあなたが今お使いのブラウザにのみ保存され、他の方の画面には表示されません。</div>
+          </div>
+          <div class="review-list" id="review-list">
+            ${revs.length === 0 ? '<div class="review-empty">まだ口コミがありません。最初の口コミを投稿してみましょう。</div>' : revs.map(r=>`
+              <div class="review-item">
+                <div class="review-item-top">${starHTML(r.rating,12)}<span class="review-nick">${escapeHtml(r.nickname)}</span><span class="review-date">${formatReviewDate(r.date)}</span></div>
+                <p class="review-text">${escapeHtml(r.text)}</p>
+              </div>`).join("")}
+          </div>
+        </div>
       </div>
     </div>`;
   document.getElementById("detail-overlay").classList.add("open");
+}
+
+function setReviewStars(n){
+  const picker = document.getElementById("review-star-picker");
+  if(!picker) return;
+  picker.dataset.value = n;
+  Array.from(picker.children).forEach(el=>{
+    el.textContent = Number(el.dataset.n) <= n ? "★" : "☆";
+  });
+}
+
+function submitReview(i){
+  const t = NATIONAL_DIRECTORY[i];
+  const picker = document.getElementById("review-star-picker");
+  const rating = Number(picker ? picker.dataset.value : 0);
+  const textEl = document.getElementById("review-text");
+  const nickEl = document.getElementById("review-nickname");
+  const text = textEl ? textEl.value.trim() : "";
+  const errEl = document.getElementById("review-error");
+  if(rating < 1 || !text){
+    if(errEl) errEl.textContent = rating < 1 ? "評価（星）を選んでください。" : "口コミの内容を入力してください。";
+    return;
+  }
+  addReview(t.name, rating, text, nickEl ? nickEl.value : "");
+  openDirectoryDetail(i);
+  renderDirectory();
+  renderRanking();
+}
+
+function toggleVisitStatus(i, status){
+  const t = NATIONAL_DIRECTORY[i];
+  setVisitStatus(t.name, status);
+  renderDirectory();
+  renderRanking();
+  const overlay = document.getElementById("detail-overlay");
+  if(overlay && overlay.classList.contains("open")){
+    openDirectoryDetail(i);
+  }
+}
+
+// ==== popularity ranking (based on this browser's own review data) ====
+let rankingRegion = "すべて";
+
+function renderRankingTabs(){
+  const wrap = document.getElementById("ranking-tabs");
+  if(!wrap) return;
+  wrap.innerHTML = REGIONS.map(r=>`<button class="ranking-tab ${r===rankingRegion?"active":""}" onclick="setRankingRegion('${r}')">${r}</button>`).join("");
+}
+function setRankingRegion(r){
+  rankingRegion = r;
+  renderRankingTabs();
+  renderRanking();
+}
+function renderRanking(){
+  const listEl = document.getElementById("ranking-list");
+  if(!listEl) return;
+  let list = NATIONAL_DIRECTORY.map((t,i)=>({...t, _idx:i}));
+  if(rankingRegion !== "すべて") list = list.filter(t=> (REGION_MAP[t.pref]||"") === rankingRegion);
+
+  list = list.map(t=>{
+    const {avg, count} = ratingSummary(t.name);
+    return {...t, _avg:avg, _count:count};
+  });
+  list.sort((a,b)=>{
+    if(a._count === 0 && b._count === 0) return a.pref.localeCompare(b.pref, "ja");
+    if(b._avg !== a._avg) return b._avg - a._avg;
+    return b._count - a._count;
+  });
+
+  if(list.length === 0){
+    listEl.innerHTML = `<div class="directory-empty">該当する神社仏閣がありません。</div>`;
+    return;
+  }
+
+  listEl.innerHTML = list.map((t, rank)=>{
+    const kindLabel = t.kind === "shrine" ? "神社" : "寺院";
+    return `
+    <div class="ranking-row" onclick="openDirectoryDetail(${t._idx})">
+      <div class="ranking-rank">${rank+1}</div>
+      <div class="ranking-info">
+        <div class="ranking-name">${t.name}<span class="ranking-pref">${t.pref}・${kindLabel}</span></div>
+        ${t._count > 0
+          ? `<div class="rating-line"><span class="rating-avg">${t._avg.toFixed(1)}</span>${starHTML(t._avg,12)}<span class="rating-num">口コミ${t._count}件</span></div>`
+          : `<div class="rating-line no-reviews">${starHTML(0,12)}<span class="rating-num">口コミ0件</span></div>`}
+      </div>
+      <div class="ranking-arrow">${ARROW_ICON}</div>
+    </div>`;
+  }).join("");
 }
 
 // ticker
@@ -1893,7 +2268,10 @@ function initTilt(){
 renderTemples();
 renderSummary();
 renderRealExamples();
+populateDirectoryFilterOptions();
 renderDirectory();
+renderRankingTabs();
+renderRanking();
 renderMatchStart();
 renderTicker();
 initReveal();
